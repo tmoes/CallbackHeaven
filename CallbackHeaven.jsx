@@ -35,7 +35,7 @@ function messageHandler(err, data) {
   // this function supplies the "messageHandler handled..." message
   // your code here...
   if (err) {
-    console.log('messageHolder handled this failure:', err);
+    console.log('messageHanlder handled this failure:', err);
   } else {
     console.log('messageHandler handled this success:', data);
   }
