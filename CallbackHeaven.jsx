@@ -21,13 +21,25 @@ function runSequentially(cb) {
   // pass in `messageHandler` as the callback to this function
   // invoke the 3 functions at the top of this file within this function
   // your code here...
-  slowFunction(cb);
-  setTimeout(function() {
-    fastFunction(cb), null;
-  }, 200);
-  setTimeout(function() {
-    null, immediateFunction(cb);
-  }, 400);
+  slowFunction((err, data) => {
+    if (err) {
+      cb(err);
+    } else {
+      fastFunction((err, data) => {
+        if (err) {
+          cb(err);
+        }
+        immediateFunction((err, data) => {
+          if (err) {
+            cb(err);
+          } else {
+            cb(null, data);
+          }
+        });
+      });
+    	cb(null, data);
+    }
+  });
 }
 
 function messageHandler(err, data) {
